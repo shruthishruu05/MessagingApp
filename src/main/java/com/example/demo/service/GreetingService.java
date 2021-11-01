@@ -36,4 +36,10 @@ public class GreetingService implements IGreetingService {
 		return greetingRepository.findById(id);
 	}
 
+	@Override
+	public List<Greeting> getGreetings() {
+		
+		return greetingRepository.findAll();
+	}
+
 }
