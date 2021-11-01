@@ -42,4 +42,9 @@ public class GreetingService implements IGreetingService {
 		return greetingRepository.findAll();
 	}
 
+	@Override
+	public void deleteGreeting(long id) {
+		greetingRepository.deleteById(id);
+	}
+
 }
