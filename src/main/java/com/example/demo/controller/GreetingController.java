@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,21 +15,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.Greeting;
+import com.example.demo.model.User;
+import com.example.demo.service.IGreetingService;
 
 @RestController
+@RequestMapping("/greeting")
 public class GreetingController {
 	private static final String template = "Hello, %s!";
 	private final AtomicLong counter = new AtomicLong();
 	
-	 @GetMapping("/greeting")
-	    public Greeting greeting(@RequestParam(value = "name",defaultValue = "World")String name){
-	        return new Greeting(counter.incrementAndGet(),String.format(template,name));
+	@Autowired
+	private IGreetingService greetingService;
+	
+	 @GetMapping(value = {"","/","/home"})
+	 public Greeting greeting(@RequestParam(value = "name",defaultValue = "World")String name){
+	        User user = new User();
+	        user.setFirstName(name);
+	        return greetingService.addGreeting(user);
 	 }
-	 @RequestMapping(value= {"/query"}, method = RequestMethod.GET)
-		public String sayHello(@RequestParam(value="name") String name) {
-			return "Hello "+name+" from BridgeLabz!";
-		}
-		
+
 	 
 	 @PostMapping("/postGreeting")
 	    public Greeting sayHello(@RequestBody Greeting greeting){
@@ -38,6 +43,6 @@ public class GreetingController {
 	 @PutMapping("/putGreeting/{counter}")
 	    public Greeting sayHello(@PathVariable int counter,@RequestParam(value = "content")String contentName){
 	        return new Greeting(counter,String.format(template,contentName));
-	    }
+	 }
 	 
 }
