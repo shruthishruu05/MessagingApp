@@ -19,7 +19,8 @@ public class GreetingService implements IGreetingService {
 	private GreetingRepository greetingRepository;
 	 
 	@Override
-	public Greeting addGreeting(User user) {
+	public Greeting addGreeting(User user) 
+	{
 		String message = String.format(template, (user.toString().isEmpty())? "Hello World": user.toString());
 		return greetingRepository.save(new Greeting(counter.incrementAndGet(),message));
 	}
