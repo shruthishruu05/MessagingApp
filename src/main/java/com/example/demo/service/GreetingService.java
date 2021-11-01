@@ -9,7 +9,6 @@ import java.util.concurrent.atomic.AtomicReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.dto.NewGreeting;
 import com.example.demo.model.Greeting;
 import com.example.demo.model.User;
 import com.example.demo.repository.GreetingRepository;
